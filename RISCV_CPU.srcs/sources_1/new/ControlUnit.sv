@@ -3,7 +3,7 @@
 
 module ControlUnit (
 
-input logic [6:0] opcode,
+input logic [6:0] opcode,    //The decoder reads this first.It tells it how to slice the other 25 bits
 input logic [2:0] funct3,
 input logic [6:0] funct7,
 output logic we,
