@@ -18,7 +18,7 @@ localparam OP_IMM = 7'b0010011;
     always_comb begin
     we = 1'b0;
     alu_src = 1'b0;
-    alu_control = 1'b0;
+    alu_control = 4'b0000;
     
        
        case (opcode)
@@ -26,8 +26,28 @@ localparam OP_IMM = 7'b0010011;
        OP_R : begin
        we = 1'b1;
        alu_src = 1'b0;
-       alu_control = 4'b0000; 
-       end
+         
+         case (funct3) 
+         
+         3'b000: begin
+            if (funct7 == 7'b0000000) begin
+              alu_control = 4'b0000;
+            end
+            else if (funct7 == 7'b0100000) begin
+              alu_control = 4'b0001;
+            end
+            else begin alu_control = 4'bx; end
+         end
+         
+         3'b001: begin
+         ////
+         ////
+         end
+         endcase
+       end  
+       
+       
+       
        
        OP_IMM : begin
        we = 1'b1;
