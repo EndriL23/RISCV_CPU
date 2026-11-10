@@ -82,7 +82,7 @@ module ALU(
        end
        
        4'b1001: begin //SRA (Shift right arithmetic)
-       result = (a >>> b[4:0]);
+       result = ($signed(a) >>> b[4:0]);
        overflow = 1'b0;
        end
        

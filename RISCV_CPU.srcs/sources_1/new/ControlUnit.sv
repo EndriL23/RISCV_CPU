@@ -3,7 +3,7 @@
 
 module ControlUnit (
 
-input logic [6:0] opcode,    //The decoder reads this first.It tells it how to slice the other 25 bits
+input logic [6:0] opcode,    //The decoder reads this first. It tells it how to slice the other 25 bits
 input logic [2:0] funct3,
 input logic [6:0] funct7,
 output logic we,
@@ -39,16 +39,20 @@ localparam OP_IMM = 7'b0010011;
             else begin alu_control = 4'bx; end
          end
          
-         3'b001: begin
-         ////
-         ////
-         end
+        
+         3'b000: alu_control = funct7[5] ? 4'b0001 : 4'b0000;  // SUB : ADD
+         3'b001: alu_control = 4'b0111;                        // SLL
+         3'b010: alu_control = 4'b0101;                        // SLT
+         3'b011: alu_control = 4'b0110;                        // SLTU
+         3'b100: alu_control = 4'b0100;                        // XOR
+         3'b101: alu_control = funct7[5] ? 4'b1001 : 4'b1000;  // SRA : SRL
+         3'b110: alu_control = 4'b0011;                        // OR
+         3'b111: alu_control = 4'b0010;                        // AND
+         
          endcase
        end  
        
-       
-       
-       
+        
        OP_IMM : begin
        we = 1'b1;
        alu_src = 1'b1;
