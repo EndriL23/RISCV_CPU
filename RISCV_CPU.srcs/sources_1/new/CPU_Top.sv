@@ -71,6 +71,18 @@ wire we;
     
     );
     
+    ALU alu (
+    
+    .a(rd1),
+    .b(alu_b),
+    .alu_control(alu_control),
+    .result(result)
+    
+    
+    
+    
+    );
+    
     
     
     
