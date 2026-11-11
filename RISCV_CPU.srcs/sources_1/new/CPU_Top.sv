@@ -16,11 +16,26 @@ wire [31:0] result;
 wire [31:0] rd1;
 wire [31:0] rd2;
 wire [31:0] alu_b;
+logic [31:0] alu_a;
+logic [1:0] alu_src_a;
 wire we;
 
     
     assign pc_next = pc + 4;
     assign alu_b = alu_src ? imm : rd2;
+    
+    always_comb begin   
+    
+     case (alu_src_a)
+    
+      2'b00: alu_a = rd1;
+      2'b01: alu_a = pc;
+      2'b10: alu_a = 32'b0;
+      2'b11: alu_a = rd1;
+    
+   
+     endcase
+    end
     
     ProgramCounter inst1 (
     
@@ -45,7 +60,8 @@ wire we;
     .funct7(instr[31:25]),
     .we(we),
     .alu_src(alu_src),
-    .alu_control(alu_control)
+    .alu_control(alu_control),
+    .alu_src_a(alu_src_a)
         
     );
     
@@ -73,17 +89,13 @@ wire we;
     
     ALU alu (
     
-    .a(rd1),
+    .a(alu_a),
     .b(alu_b),
     .alu_control(alu_control),
     .result(result)
     
-    
-    
-    
+       
     );
     
-    
-    
-    
+            
 endmodule

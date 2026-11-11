@@ -9,6 +9,7 @@ logic [2:0] funct3;
 logic we;
 logic alu_src;
 logic [3:0] alu_control;
+logic [1:0] alu_src_a;
 
   ControlUnit inst0 (
      
@@ -17,7 +18,8 @@ logic [3:0] alu_control;
      .funct3(funct3),
      .we(we),
      .alu_src(alu_src),
-     .alu_control(alu_control)
+     .alu_control(alu_control),
+     .alu_src_a(alu_src_a)
   
   );
   
@@ -40,6 +42,12 @@ logic [3:0] alu_control;
   opcode = 7'b0000011;
   funct7 = 7'b1111111;
   funct3 = 3'b111;
+  
+  #10
+  opcode = 7'b0110111;
+  
+  #10
+  opcode = 7'b0010111;
 
 end    
 endmodule
